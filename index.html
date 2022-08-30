@@ -1,0 +1,1144 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <script src="Scripts/jquery-1.7.2.min.js"></script>
+    <script>
+        function loadExtentFile(filePath, fileType) {
+            $("#pflink").removeAttr("href");
+            $("#pflink").attr("href", "css/" + filePath + ".css");
+        }
+        $(document).ready(function () {
+            var text = " 简介：智力测验（intellingence test)亦称智商测验或IQ测验，是通过测验的方式来了解人的智力水平高低的一种方法。一般认为，智力是人的各种基本能力的综合，包括观察力、注意力、记忆力、思维力和想象力等，因此，智力测验又称普通或一般能力测验。";
+            var text1 = " 指导语：1．你必须在45分钟内完成全部60个题目，一定不要超过时间。2．不要在一个题目上耽搁太久，如果回答不出，就猜一个答案。猜错不扣分。不要留下未回答的题目。3．如果一个题目看起来有一个以上的正确答案或没有正确答案，选一个你认为最好的答案。这些题目是为了测验你的思考力而有意设计的。";
+            loadExtentFile('main', "css");
+            divhide();
+            
+            //SunQQ 2017-10-31
+            if('true' == 'false')
+            {
+                if (1 == 1) {
+                    continuetest(); //续测
+                }
+                else
+                {
+                    magalert(text, text1);  //测试
+                }
+            }
+            else if (1 == 1) {
+                HH = 00
+                mm = 00
+                ss = 04
+                                                                
+                //初始化测试时间
+                test();
+            }
+        })
+
+    </script>
+
+    <link id="pflink" href="css/main.css" rel="stylesheet" /><link href="css/bar.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+
+    <script src="artDialog4/artDialog.source.js?skin=aero"></script>
+    <script src="artDialog4/plugins/iframeTools.source.js"></script>
+
+    <title>
+	量表测试
+</title>
+    <style type="text/css">
+       .w100 .cur {
+            background-color: #82BCF5;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .w100 .answer {
+            line-height: 30px;
+        }
+
+            .w100 .answer:hover {
+                background-color: #9DCFFA;
+            }
+            
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        function NextPD() {
+            if ($('.cur').length > 0) {
+                return true;
+            }
+            else {
+                if($(".tbanswer").val().trim().length > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    alert('未选择/填写答案！');
+                    return false;
+                }
+            }
+        }
+        
+        function Pre(val) {
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                async: false,
+                url: "THCache.aspx?code=" + val,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data: { id: "1" },
+                success: function (data) {
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <form name="form1" method="post" action="./Test_365.aspx?id=365&amp;fid=&amp;iscontinue=1" id="form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjAyMjcwMTY1Nw8WBB4FaW5kZXgCBB4LdXNlckFuc3dlcnMyigsAAQAAAP////8BAAAAAAAAAAQBAAAA4QFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5EaWN0aW9uYXJ5YDJbW1N5c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XSxbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0EAAAAB1ZlcnNpb24IQ29tcGFyZXIISGFzaFNpemUNS2V5VmFsdWVQYWlycwADAAMIkQFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5HZW5lcmljRXF1YWxpdHlDb21wYXJlcmAxW1tTeXN0ZW0uSW50MzIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dCOUBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuS2V5VmFsdWVQYWlyYDJbW1N5c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XSxbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV1bXQQAAAAJAgAAAAcAAAAJAwAAAAQCAAAAkQFTeXN0ZW0uQ29sbGVjdGlvbnMuR2VuZXJpYy5HZW5lcmljRXF1YWxpdHlDb21wYXJlcmAxW1tTeXN0ZW0uSW50MzIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OV1dAAAAAAcDAAAAAAEAAAAEAAAAA+MBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuS2V5VmFsdWVQYWlyYDJbW1N5c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XSxbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0E/P///+MBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuS2V5VmFsdWVQYWlyYDJbW1N5c3RlbS5JbnQzMiwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XSxbU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0CAAAAA2tleQV2YWx1ZQABCAEAAAAGBQAAAAExAfr////8////AgAAAAYHAAAAATQB+P////z///8DAAAABgkAAAABMQH2/////P///wQAAAAGCwAAAAEyCxYCAgMPZBYIAgIPDxYCHgRUZXh0BTXlm6LkvZPmmbrlipvmtYvpqowmbmJzcDsmbmJzcDsmbmJzcDvpopjnm67mgLvmlbDvvJo2MGRkAgMPZBYCZg9kFgZmDw8WAh4ISW1hZ2VVcmwFEWltYWdlcy9iZ292ZXIuanBnZGQCAg9kFgICAQ8PFgQeCENzc0NsYXNzBQNjdXIeBF8hU0ICAmQWAmYPEA8WBh8EBQNjdXIeB0NoZWNrZWRnHwUCAmRkZGQCAw8PFgIeB0VuYWJsZWRnZGQCBA9kFgICAQ8PFgIfAgXQAueugOS7i++8muaZuuWKm+a1i+mqjO+8iGludGVsbGluZ2VuY2UgdGVzdCnkuqbnp7DmmbrllYbmtYvpqozmiJZJUea1i+mqjO+8jOaYr+mAmui/h+a1i+mqjOeahOaWueW8j+adpeS6huino+S6uueahOaZuuWKm+awtOW5s+mrmOS9jueahOS4gOenjeaWueazleOAguS4gOiIrOiupOS4uu+8jOaZuuWKm+aYr+S6uueahOWQhOenjeWfuuacrOiDveWKm+eahOe7vOWQiO+8jOWMheaLrOinguWvn+WKm+OAgeazqOaEj+WKm+OAgeiusOW/huWKm+OAgeaAnee7tOWKm+WSjOaDs+ixoeWKm+etie+8jOWboOatpO+8jOaZuuWKm+a1i+mqjOWPiOensOaZrumAmuaIluS4gOiIrOiDveWKm+a1i+mqjOOAgmRkAgUPZBYCAgEPDxYCHwIFqAPmjIflr7zor63vvJox77yO5L2g5b+F6aG75ZyoNDXliIbpkp/lhoXlrozmiJDlhajpg6g2MOS4qumimOebru+8jOS4gOWumuS4jeimgei2hei/h+aXtumXtOOAgg0KICAgIDLvvI7kuI3opoHlnKjkuIDkuKrpopjnm67kuIrogL3mkIHlpKrkuYXvvIzlpoLmnpzlm57nrZTkuI3lh7rvvIzlsLHnjJzkuIDkuKrnrZTmoYjjgILnjJzplJnkuI3miaPliIbjgILkuI3opoHnlZnkuIvmnKrlm57nrZTnmoTpopjnm67jgIINCiAgICAz77yO5aaC5p6c5LiA5Liq6aKY55uu55yL6LW35p2l5pyJ5LiA5Liq5Lul5LiK55qE5q2j56Gu562U5qGI5oiW5rKh5pyJ5q2j56Gu562U5qGI77yM6YCJ5LiA5Liq5L2g6K6k5Li65pyA5aW955qE562U5qGI44CC6L+Z5Lqb6aKY55uu5piv5Li65LqG5rWL6aqM5L2g55qE5oCd6ICD5Yqb6ICM5pyJ5oSP6K6+6K6h55qE44CCZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgkFBWxibHwxBQVsYmx8MQUFbGJsfDIFBWxibHwzBQVsYmx8MwUFbGJsfDQFBWxibHw0BQVsYmx8NQUFbGJsfDUt+vL9LQ5ebsmDSNBGxVHi9jMu3pl/Hs0dissJ69IZ9w==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=VRWfoZrJoCgrBb4PuU-e3r8oCIDMT_Lo6tq4e8KelNigmZcTEfnfBungPt6clDGmYrDm1R5BDljtY8GxT49MLtDAHi0jiR-JnwNkeKDFKgw1&amp;t=637142305894968274" type="text/javascript"></script>
+
+
+<script src="/ScriptResource.axd?d=qWl-bH5BOPmomOZPcYx0nMEtucEBjcappvVkXOSq6XpIMFvq0NPf4gOmbMu1qOcsXmFgQxWjM-0jyxlipRBHMcuntlE_e_oLZhpSoI6QbZ5JitBEmxwq3wJJycCUI9tOpvdPLuT6_9hzM2Y2zBW5ePcSnDx5_yjR3QVh8EsvDExSVwsavvnHbJnmpxvTMgMl0&amp;t=ffffffff9a9577e8" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=tcl6gKT-3Z2_Dd5PF0yeiIHugQyBcCQ3MmJfMY3LCD7UFnNRVWRSzfunRwM9l6VhhUrSunuVIua34xkxxAv242OwSqvvnh3vTp2hA7B5IyNhFFar-5W0L7IonWqLivzUV2YCbW0ZYFAqwTTyMjhlFXzWFoYO3_3HnS-b55Tnw3u1WFxwXT1TorPqEfbZh3vU0&amp;t=ffffffff9a9577e8" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="22478238" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAt0FlbESdzjO+OwmdCttka3+nV6T7Fan7Zd9jV0eZcVQtznPLxpgcyf+cVWguTG+BqnolCIC0GAvFDD24f44MIvPwQss+Lta1z960ZFKOuP9X2p+s44vQB/feYyIrWRiYCZMXbDfC11e2PTFJceU7stAOGY0qiXCn7zZfEEbbruU4FjpILoFgeQqvXWA+7aEDS4B/gurr82x0ot0AeN9Qai8DqrrKW3PxX8DvcQyq+jMIS4sYtifC+3rRpgY2AoYhQAFrn1R9rVeVe0i+avaLy2" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager1', 'form1', ['tup',''], [], [], 90, '');
+//]]>
+</script>
+
+        
+
+<link href="css/index.css" id="pflink" rel="stylesheet" />
+
+<script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
+
+<script src="/js/imagePreview.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="artDialog4/artDialog.source.js?skin=aero"></script>
+<script type="text/javascript" src="artDialog4/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+<script src="Admin/js/jquery.js"></script>
+<style type="text/css">
+    .bdiv {
+        background-color: #ffffff;
+        border: 1px solid #f5f5f5;
+        display: none;
+        position: absolute;
+        z-index: 100;
+        left: 124px;
+    }
+
+    .clearfix:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+
+    .coustom_button {
+        background: url(/admin/images/btn-line.png) repeat-x 0 0;
+        border: 1px solid #9abacf;
+        height: 26px;
+        padding: 0 10px 0 10px;
+        cursor: pointer;
+        margin: 0 5px 5px 0;
+        border-radius: 3px;
+        width: 121px;
+    }
+
+    .file_a {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+
+        .file_a input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file_a:hover {
+            background: #AADFFD;
+            border-color: #78C3F3;
+            color: #004974;
+            text-decoration: none;
+        }
+
+    .treeview {
+        overflow: auto;
+        height: 162px;
+        width: 300px;
+    }
+
+        .treeview .list-group-item {
+            cursor: pointer;
+            display: block;
+        }
+
+    :not(.node-disabled).node-treeview1:hover {
+        background-color: #E8E8E8;
+    }
+
+    .treeview span.icon {
+        width: 12px;
+        margin-right: 5px;
+    }
+
+    .treeview span.indent {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+</style>
+<script>
+    $('.m-nav li').click(function () {
+        $('.m-nav li').removeClass('active');
+        $(this).addClass('active')
+    })
+</script>
+<script type="text/javascript">
+
+    $('.m-nav li').click(function () {
+        $('.m-nav li').removeClass('active');
+        $(this).addClass('active')
+    })
+
+
+    function addBookmark(title, url) {
+
+        try {
+            window.external.addFavorite(url, title);
+        }
+        catch (e) {
+            try { window.sidebar.addPanel(title, url, ""); }
+            catch (e) { alert("抱歉，您所使用的浏览器无法完成此操作，请使用Ctrl+D进行添加"); }
+        }
+    }
+
+    function SetHome(obj) {
+        try {
+            $(obj)[0].style.behavior = 'url(#default#homepage)';
+            $(obj)[0].setHomePage(window.location);
+        }
+        catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("抱歉，此操作被浏览器拒绝！\n\n请在浏览器地址栏输入'about:config'并回车然后将[signed.applets.codebase_principal_support]设置为'true'");
+                }
+            }
+            else {
+                alert("抱歉，您所使用的浏览器无法完成此操作。\n\n您需要手动将【" + window.location + "】设置为首页。");
+            }
+        }
+    }
+
+    function register() {
+        $("#userinfo").show();
+        $("#divlogin").hide();
+    }
+
+    function login() {
+        var login_type = $("#txtlogintype").val();
+        var login_no = $("#txtname").val();
+        var login_pwd = $("#txtpwd").val();
+        var val_code = $("#txtcode").val();
+
+        if (login_no.trim().length <= 0) {
+            alert('请输入登录账号。');
+            $("#txtname").focus();
+        }
+        else if (login_pwd.trim().length <= 0) {
+            alert('请输入登录密码。');
+            $("#txtpwd").focus();
+        }
+        else if (val_code.trim().length <= 0) {
+            alert('请输入验证码。');
+            $("#txtcode").focus();
+        }
+        else {
+
+            $.ajax({
+                type: "POST", //提交数据的类型 分为POST和GET
+                async: false,
+                url: "Web_Process.ashx",  //提交url 
+                data: { action: "web_login", login_type: login_type, login_no: login_no, login_pwd: login_pwd, val_code: val_code },
+                success: function (result) {
+                    if (result.code == "0") {
+                        $("#divlogininfo").hide();
+                        $("#divuserinfo").show();
+
+                        $("#txtname").val("");
+                        $("#txtpwd").val("");
+                        $("#txtcode").val("");
+
+                        $("#lblname").text(result.data.uname);
+                        $("#lbluniques").text(result.data.uniques);
+                        $("#lblsex").text(result.data.sex);
+                        $("#lblage").text(result.data.age);
+                        $("#lblss").text(result.data.ubname);
+
+                        $("#tbname").val(result.data.uname);
+                        $("#tbuniques").val(result.data.uniques);
+                        $("#tbuniques").attr("readonly", "readonly");
+                        $("#tbsex").val(result.data.sex);
+                        $("#tbdatebirth").val(result.data.datebirth);
+                        $("#hide_ubid").val(result.data.ubid);
+                        $("#tbryss").val(result.data.ubname);
+                        $("#tbpwd").val("");
+                        $("#tbrepwd").val("");
+                        $("#TT1").val(result.data.t1);
+                        $("#TT2").val(result.data.t2);
+                        $("#TT3").val(result.data.t3);
+                        $("#TT4").val(result.data.t4);
+                        $("#TT5").val(result.data.t5);
+                        $("#TT6").val(result.data.t6);
+                        $("#TT7").val(result.data.t7);
+                        $("#TT8").val(result.data.t8);
+                        if (parseInt(result.data.ueid) > 0)
+                            $("#checkbox1")[0].checked = "checked";
+                        else
+                            $("#checkbox1")[0].checked = "";
+
+                        $("#Hide_Key").val(result.data.uid);
+                    }
+                    else {
+                        alert(result.message);
+                        changeCode();
+                    }
+                }
+            });
+        }
+    }
+
+    function getuserinfo() {
+        $('#divlogin').show();
+
+        if (parseInt($("#Hide_Key").val().trim()) > 0) {
+            $("#divlogininfo").hide();
+            $("#divuserinfo").show();
+        }
+    }
+
+    function divloginhide() {
+        $('#divlogin').hide();
+    }
+
+    function changeCode() {
+        document.getElementById('_ibtn_yzm').src = document.getElementById('_ibtn_yzm').src + "?";
+
+        $("#txtcode").val("");
+    }
+
+    function cleartb() {
+        $("#txtlogintype").val("1");
+        $("#tbname").val("");
+        $("#tbuniques").val("");
+        $("#tbryss").val("");
+        $("#ssid").val("");
+        $("#tbpwd").val("");
+        $("#tbrepwd").val("");
+        $("#TT1").val("");
+        $("#TT2").val("");
+        $("#TT3").val("");
+        $("#TT4").val("");
+        $("#TT5").val("");
+        $("#TT6").val("");
+        $("#TT7").val("");
+        $("#TT8").val("");
+        $("#tbdatebirth").val("");
+        $("#checkbox1")[0].checked = "";
+        $("#ryssdiv").hide();
+        changeCode();
+    }
+
+    function user_close() {
+        cleartb();
+        $("#userinfo").hide();
+
+    }
+
+    function ryss_show() {
+        $("#ryssdiv").show();
+        var tree_data = '<ul><li class="list-group-item node-treeview1" onclick ="selected_chanage(1, this)"> <div style="color: inherit;margin-left: 10px;">部门1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(863, this)"> <div style="color: inherit;margin-left: 40px;">科室1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(864, this)"> <div style="color: inherit;margin-left: 40px;">科室2</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(901, this)"> <div style="color: inherit;margin-left: 60px;">单位1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(902, this)"> <div style="color: inherit;margin-left: 80px;">班组1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(875, this)"> <div style="color: inherit;margin-left: 40px;">科室3</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(876, this)"> <div style="color: inherit;margin-left: 60px;">单位1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(877, this)"> <div style="color: inherit;margin-left: 40px;">科室4</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(883, this)"> <div style="color: inherit;margin-left: 10px;">部门2</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(908, this)"> <div style="color: inherit;margin-left: 40px;">科室1</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(884, this)"> <div style="color: inherit;margin-left: 10px;">部门3</div></li><li class="list-group-item node-treeview1" onclick ="selected_chanage(886, this)"> <div style="color: inherit;margin-left: 10px;">部门4</div></li></ul>';
+        $('#treeview1').prepend(tree_data);
+    }
+
+    function ryss_hide() {
+        $("#ryssdiv").hide();
+    }
+
+    function selected_chanage(_id, _obj) {
+
+        $("#hide_ubid").val(_id);
+
+        //$("#tbryss").val($(_obj).text().trim());
+
+        findNode(_id);
+        //var text = $(_obj).text().trim();
+
+        //var res = $('#treeview1').val();
+        //var end =  treeFindPath(res, data => data.name === text);
+        //$("#tbryss").val(end);
+        checkinput($("#tbryss"));
+
+        ryss_hide();
+    }
+
+    function findNode(id) {
+        var ID = id;
+        $.ajax({
+            type: "POST", //提交数据的类型 分为POST和GET
+            async: false,
+            url: "Web_Process.ashx",  //提交url 
+            data: { action: "web_findNode" ,ID:ID},
+            success: function (result) {
+                if (result.code == "1") {
+                   
+                    $("#tbryss").val(result.message);
+                   
+
+                    
+                }
+                else {
+                    alert(result.message);
+                }
+            }
+        });
+
+    }
+
+
+
+
+    function treeFindPath(tree, func, path = []) {
+        if (!tree) return []
+        for (const data of tree) {
+            // 这里按照你的需求来存放最后返回的内容吧
+            path.push(data.name)
+            if (func(data)) return path
+            if (data.children) {
+                const findChildren = treeFindPath(data.children, func, path)
+                if (findChildren.length) return findChildren
+            }
+            path.pop()
+        }
+        return []
+    }
+
+
+
+    function UniquesCheck(obj) {
+        if ($(obj).val().trim().length > 0) {
+
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                async: false,
+                url: "admin/ajax/wybs.aspx",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data: { wybs: $(obj).val().trim() },
+                success: function (data) {
+                    $("#lbl_uniques").text(data.msg);
+                    if (data.success) {
+                        $("#lbl_uniques").css('display', 'none');
+                    }
+                    else {
+                        $("#lbl_uniques").css('display', 'block');
+                    }
+                }
+            });
+        }
+    }
+
+    function preview(file, preview, imghead) {
+        var ie = /msie/.test(navigator.userAgent.toLowerCase());
+        if (ie) {
+            //参数 是否是IE，div的id，img的id，高,宽 
+            previewImage(true, file, preview, imghead, 121, 121);
+        } else {
+            //参数 是否是IE，div的id，img的id，高,宽 
+            previewImage(false, file, preview, imghead, 121, 121);
+        }
+    }
+
+    function register_submit() {
+        var v_uname = $("#tbname").val();
+        var v_uniques = $("#tbuniques").val();
+        var v_sex = $("#tbsex").val();
+        var v_datebirth = $("#tbdatebirth").val();
+        var v_hide_ubid = $("#hide_ubid").val();
+        var v_pwd = $("#tbpwd").val();
+        var v_repwd = $("#tbrepwd").val();
+        var v_t1 = $("#TT1").val();
+        var v_t2 = $("#TT2").val();
+        var v_t3 = $("#TT3").val();
+        var v_t4 = $("#TT4").val();
+        var v_t5 = $("#TT5").val();
+        var v_t6 = $("#TT6").val();
+        var v_t7 = $("#TT7").val();
+        var v_t8 = $("#TT8").val();
+        var v_checked = $("#checkbox1")[0].checked;
+
+        var v_i_count = 0;
+        if (v_uname.trim().length <= 0) {
+            $("#lbl_name").css("display", "");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_name").css("display", "none");
+        }
+        var reg = new RegExp("^[0-9]*$");
+        if (v_uniques.trim().length <= 0) {
+            $("#lbl_uniques").text("*此项不能为空");
+            $("#lbl_uniques").css("display", "");
+            v_i_count++;
+        }
+        else if (!reg.test(v_uniques.trim())) {
+            $("#lbl_uniques").text("*请输入数字编码的字符");
+            $("#lbl_uniques").css("display", "");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_uniques").css("display", "none");
+        }
+        if (v_datebirth.trim().length <= 0) {
+            $("#lbl_datebirth").css("display", "");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_datebirth").css("display", "none");
+        }
+        if (v_hide_ubid.trim().length <= 0 || v_hide_ubid.trim() == "0") {
+            $("#lbl_ryss").css("display", "");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_ryss").css("display", "none");
+        }
+        if (v_pwd.trim().length <= 0 && parseInt($("#Hide_Key").val().trim()) <= 0) {
+            $("#lbl_pwd").css("display", "");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_pwd").css("display", "none");
+        }
+
+        if (v_repwd.trim().length <= 0 && parseInt($("#Hide_Key").val().trim()) <= 0) {
+            $("#lbl_repwd").css("display", "");
+            $("#lbl_repwd").text("*此项不能为空");
+            v_i_count++;
+        }
+        else if (v_repwd.trim() != v_pwd.trim() && parseInt($("#Hide_Key").val().trim()) <= 0) {
+            $("#lbl_repwd").css("display", "");
+            $("#lbl_repwd").text("*两次密码输入不一致");
+            v_i_count++;
+        }
+        else {
+            $("#lbl_repwd").css("display", "none");
+        }
+        if (v_i_count == 0) {
+
+            var formData = new FormData();
+            formData.append("headimg", document.getElementById("file1").files[0]);
+            formData.append("action", "web_register");
+            formData.append("uname", v_uname);
+            formData.append("uniques", v_uniques);
+            formData.append("sex", v_sex);
+            formData.append("datebirth", v_datebirth);
+            formData.append("ubid", v_hide_ubid);
+            formData.append("pwd", v_pwd);
+            formData.append("ischecked", v_checked);
+            formData.append("t1", v_t1);
+            formData.append("t2", v_t2);
+            formData.append("t3", v_t3);
+            formData.append("t4", v_t4);
+            formData.append("t5", v_t5);
+            formData.append("t6", v_t6);
+            formData.append("t7", v_t7);
+            formData.append("t8", v_t8);
+
+            $.ajax({
+                url: "Web_Process.ashx",  //提交url 
+                type: 'post',
+                data: formData,
+                /**
+                *必须false才会自动加上正确的Content-Type
+                */
+                contentType: false,
+                /**
+                * 必须false才会避开jQuery对 formdata 的默认处理
+                * XMLHttpRequest会对 formdata 进行正确的处理
+                */
+                processData: false,
+                success: function (result) {
+                    alert(result.message);
+                    if (result.code == "0" && parseInt($("#Hide_Key").val().trim()) > 0) {
+
+                        $("#divlogininfo").hide();
+                        $("#divuserinfo").show();
+
+                        $("#txtname").val("");
+                        $("#txtpwd").val("");
+                        $("#txtcode").val("");
+
+                        $("#lblname").text(result.data.uname);
+                        $("#lbluniques").text(result.data.uniques);
+                        $("#lblsex").text(result.data.sex);
+                        $("#lblage").text(result.data.age);
+                        $("#lblss").text(result.data.ubname);
+
+                        $("#Hide_Key").val(result.data.uid);
+                    }
+                }
+            });
+
+        }
+    }
+
+    function checkinput(obj) {
+        var tips_name = $(obj).attr("id").trim().substring(2);
+
+        if ($(obj).val().trim().length <= 0 && parseInt($("#Hide_Key").val().trim()) <= 0) {
+            $("#lbl_" + tips_name).text("*此项不能为空");
+            $("#lbl_" + tips_name).css("display", "");
+        }
+        else if ($("#tbpwd").val().trim() != $("#tbrepwd").val().trim() && tips_name == "repwd" && parseInt($("#Hide_Key").val().trim()) <= 0) {
+            $("#lbl_" + tips_name).text("*两次密码输入不一致");
+            $("#lbl_" + tips_name).css("display", "");
+        }
+        else {
+            $("#lbl_" + tips_name).css("display", "none");
+        }
+    }
+
+    function logout() {
+        $.ajax({
+            type: "POST", //提交数据的类型 分为POST和GET
+            async: false,
+            url: "Web_Process.ashx",  //提交url 
+            data: { action: "web_logout" },
+            success: function (result) {
+                if (result.code == "0") {
+                    cleartb();
+
+                    $("#divlogininfo").show();
+                    $("#divuserinfo").hide();
+
+                    window.location.reload();
+                }
+                else {
+                    alert(result.message);
+                }
+            }
+        });
+    }
+
+    function updateclick() {
+        $("#userinfo").css('display', 'block');
+        $("#divregcon").css('display', 'block');
+        $("#lbl_pwd").text("*此处为空则不修改密码");
+        $("#lbl_pwd").css('display', 'block');
+
+        $("#tbuniques").attr("readonly", "readonly");
+    }
+
+    //光标移走登录框消失
+    function divuserinfo_mouseleave() {
+        if ($("#divuserinfo")[0].style.display != "none")
+            $("#divlogin").css("display", "none");
+    }
+
+    //回车登录
+    $(document).keyup(function (event) {
+        if (event.keyCode == 13 &&
+            parseInt($("#Hide_Key").val().trim()) <= 0 &&
+            $("#divlogin")[0].style.display != "none") {
+            login();
+        }
+    });
+</script>
+<div class="area">
+    <div class="top">
+        <div class="m-logo">
+            <a href="default.aspx">
+                <img src="images/logo.png" /></a>
+        </div>
+        <div class="m-nav">
+            <ul>
+                <li class=""><a href="careerplan.aspx">职业生涯规划</a></li>
+                <li class="limarginleft "><a href="images.aspx">活动影集</a></li>
+                <li class="limarginright "><a href="testonlie.aspx">在线测试</a></li>
+                <li class=""><a href="consultonline.aspx">在线咨询</a></li>
+            </ul>
+        </div>
+        <!--m-nav-->
+        <div class="m-link clear">
+            <div class="left">
+                <div style="position: relative;">
+                    <a href="javascript:" class="btn" onmousemove="getuserinfo()">登录</a>
+                    <div id="divlogin" class="m-login dropdown-layout" style="background: #f6f5f5; display: none; border: 1px solid #2f7fbe;">
+                        <div id="divlogininfo" class="form">
+                            <div class="input" style="background: url(../images/login-ico0.jpg) left top no-repeat;">
+                                <select class="bdiand" id="txtlogintype" style="height: 29px; width: 100%; border: 0;">
+                                    <option value="1">用户名登录</option>
+                                    <option value="2">ID登录</option>
+                                </select>
+                            </div>
+                            <div class="input input1">
+                                <input type="text" class="bdiand" id="txtname" maxlength="15" style="vertical-align:middle;" />
+                            </div>
+                            <div class="input input2">
+                                <input type="password" class="bdiand" id="txtpwd" style="vertical-align:middle;" />
+                            </div>
+                            <div class="input input2" style="background: url(../images/login-ico3.jpg) left top no-repeat;">
+                                <input type="text" class="bdiand" id="txtcode" maxlength="4" style="width: 50%; vertical-align: top;" />
+                                <img src="ImageCode.aspx" id="_ibtn_yzm" style="height: 29px; width: 40%; cursor: pointer;" onclick="changeCode()" />
+                            </div>
+                            <div class="color-787879" style="text-align: right;">
+                                <a href="javascript:void(0);" onclick="register()" class="color-787879 regbtn">注册心健会员</a>
+                            </div>
+                            <div class="inputbtn">
+                                <input id="btnlogin" onclick="login()" type="button" value="登录" />
+                                <input name="hed$btncancel1" type="button" id="hed_btncancel1" onclick="divloginhide()" value="取消" class="right" />
+                            </div>
+                        </div>
+
+                        <div id="divuserinfo" class="formlbl" style="display: none; width: 100%; height: 100%;"
+                            onmouseleave="divuserinfo_mouseleave()">
+                            <div class="loginlbl" style="margin: 10px 20px;">
+                                <p><span style="width: 60px; display: inline-block; text-align: right;">姓名：</span><span id="lblname" style="color: #000000;">admin               </span></p>
+                                <p><span style="width: 60px; display: inline-block; text-align: right;">ID：</span><span id="lbluniques" style="color: #000000;">13</span></p>
+                                <p><span style="width: 60px; display: inline-block; text-align: right;">性别：</span><span id="lblsex" style="color: #000000;">17</span></p>
+                                <p><span style="width: 60px; display: inline-block; text-align: right;">年龄：</span><span id="lblage" style="color: #000000;">女</span></p>
+                                <p><span style="width: 60px; display: inline-block; text-align: right;">所属：</span><span id="lblss" style="color: #000000;">部门1>科室1</span></p>
+                            </div>
+
+                            <div class="inputbtn" style="margin: 0 20px;">
+                                <input type="button" id="btn_logout" value="退出" onclick="logout()" />
+                                <input type="button" id="btn_update" value="修改" class="right" onclick="updateclick()" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <a href="admin/login.aspx" target="_blank" class="btn">网站后台</a>
+            </div>
+           
+        </div>
+
+        <!-- 修改\注册弹框 -->
+        <div id="userinfo" class="fixed" style="display: none;">
+            <div id="divregcon" class="regcon">
+                <input type="hidden" id="Hide_Key" value="1" />
+                <div id="divclose" class="close" onclick="user_close()"></div>
+                <div class="m-reg" style="background: #f6f5f5; border: 1px solid #2f7fbe;">
+                    <div style="margin: 30px 0 30px 30px; width: 100%;">
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">姓名：</span>
+                            <input type="text" class="bdiand" id="tbname" maxlength="15"
+                                        onchange="checkinput(this)" value="admin               "
+                                        style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                            <span id="lbl_name" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">ID：</span>
+                            <input type="text" class="bdiand" id="tbuniques" maxlength="50"
+                                        value="13"
+                                        onchange="checkinput(this)" oninput="UniquesCheck(this)"
+                                        style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                            <span id="lbl_uniques" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        <div style="margin-bottom:5px;">
+                            <span style="display:inline-block;width:90px;text-align:right;"></span>
+                            <span style="color: red">提示： ID注册后不可修改！</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">性别：</span>
+                            <select class="bdiand" id="tbsex" style="height: 29px; width: 154px; border: 1px solid #c3c0c0;">
+                                <option value="男" >男</option>
+                                <option value="女" selected="selected">女</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">出生日期：</span>
+                            <input type="text" class="bdiand" id="tbdatebirth"
+                                        onchange="checkinput(this)"
+                                        value="2005-12-01"
+                                        onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd' })"
+                                        style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                            <span id="lbl_datebirth" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">所属：</span>
+                            <input type="hidden" id="hide_ubid" value="863" />
+                            <input type="text" class="bdiand" id="tbryss" readonly="readonly"
+                                value="部门1>科室1"
+                                onclick="ryss_show()"
+                                style="height: 21px; width: 149px; border: 1px solid #c3c0c0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" onmouseover="this.title=this.value"  />
+                            <div id="ryssdiv" class="bdiv">
+                                <div style="cursor: pointer; text-align: center; background: #cfcfcf;" onclick="ryss_hide()"><span style="font-weight: bold;">关 闭</span></div>
+                                <div id="treeview1" class="treeview"></div>
+                            </div>
+                            <span id="lbl_ryss" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">密码：</span>
+                            <input type="password" class="bdiand" id="tbpwd"
+                                        onchange="checkinput(this)"
+                                        style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                            <span id="lbl_pwd" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="display:inline-block;width:90px;text-align:right;">确认密码：</span>
+                            <input type="password" class="bdiand" id="tbrepwd"
+                                        onchange="checkinput(this)"
+                                        style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                            <span id="lbl_repwd" style="color: #ff0000; display: none">*此项不能为空</span>
+                        </div>
+                        
+                        <div style="margin-bottom:10px;">
+                            <div style="border:1px dashed #00686b; width:88%;text-align:left;margin-bottom:5px;" ></div>
+                            <input type="checkbox" id="checkbox1" style="font: 400 14px 微软雅黑;" />是否追加详细信息（选中则将以下录入信息保存)
+                        </div>
+                        
+                        <div style="margin-bottom:10px;">
+                            <span style="display: inline-block; width: 90px; text-align: right;">身份证号：</span>
+                            <input type="text" class="bdiand" id="TT1"
+                                value="未填写"
+                                style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                        </div>
+                        
+                        <div style="margin-bottom:10px;">
+                            <span style="display: inline-block; width: 90px; text-align: right;">微信号：</span>
+                            <input type="text" class="bdiand" id="TT2"
+                                value="未填写"
+                                style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                        </div>
+                        
+                        <div style="margin-bottom:10px;">
+                            <span style="display: inline-block; width: 90px; text-align: right;">qq号：</span>
+                            <input type="text" class="bdiand" id="TT3"
+                                value="未填写"
+                                style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+                        </div>
+                        
+                        <div style="margin-bottom:10px;">
+                            <span style="display: inline-block; width: 90px; text-align: right;">未开启：</span>
+                            <input type="text" class="bdiand" id="TT8"
+                                value="未填写"
+                                style="height: 21px; width: 149px; border: 1px solid #c3c0c0;" />
+
+                        </div>
+                        
+                        <div style="margin-top:10px;" class="clearfix">
+                            <span style="display: inline-block; width: 90px; text-align: right;"></span>
+                            <input type="button" value="提交" class="coustom_button" style="width: 150px; margin-top: 15px;" onclick="register_submit()" />
+                            <div style="position: relative;" >
+                                <div style="position: absolute; top: -179px; right: 50px;">
+                                    <div id="div_img">
+                                        <img src="../images/nopicture.jpg" id="hed_imghead" style="height: 121px; max-width: 121px; max-height: 121px;" />
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <a href="javascript:;" class="file_a" style="margin: 4px 0px 0px 0px; width: 95px;">选择头像
+                                                            <input id="file1" type="file" accept="图片(image/gif,image/jpeg,image/png)"
+                                                                onchange="preview(this,'div_img','imghead')" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!--内页banner-->
+            <div class="clearfix">
+                   
+                        <div class="testInner">
+                            <h3>量表名：<span id="lbname">团体智力测验&nbsp;&nbsp;&nbsp;题目总数：60</span></h3>
+                            <div id="up">
+	
+                                    
+                                    <dl>
+                                        <dt>
+                                            <img src="images/ask.jpg" alt="" style="float: left; margin-top: 7px;" />
+                                            <div id="pnlQuestions" style="font-weight:bold;color: #2A79BB;">
+		<span id="lblQuestion">4、找出与众不同的一个？</span>
+	</div>
+                                            <dd>
+                                                <ul class="oz w100" style='color: #2A79BB; font-size: 14px;'>
+                                                    <div id="pnlAnswers" style="font-weight:bold;">
+		<div id="pnl1" class="answer" onclick="var t = this.getElementsByTagName(&#39;input&#39;)[0];if(t.type == &#39;radio&#39;){t.click();}">
+			<span class="rbanswer"><input id="lbl|1" type="radio" name="answer" value="lbl|1" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;lbl|1\&#39;,\&#39;\&#39;)&#39;, 0)" /></span><img id="img_a_1" z-index="-1" src="../text_365/4-a-1.png" style="height:55px;width:56px;border-width:0px;" />
+		</div><div id="pnl2" class="cur" onclick="var t = this.getElementsByTagName(&#39;input&#39;)[0];if(t.type == &#39;radio&#39;){t.click();}">
+			<span class="cur"><input id="lbl|2" type="radio" name="answer" value="lbl|2" checked="checked" /></span><img id="img_a_2" z-index="-1" src="../text_365/4-a-2.png" style="height:55px;width:56px;border-width:0px;" />
+		</div><div id="pnl3" class="answer" onclick="var t = this.getElementsByTagName(&#39;input&#39;)[0];if(t.type == &#39;radio&#39;){t.click();}">
+			<span class="rbanswer"><input id="lbl|3" type="radio" name="answer" value="lbl|3" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;lbl|3\&#39;,\&#39;\&#39;)&#39;, 0)" /></span><img id="img_a_3" z-index="-1" src="../text_365/4-a-3.png" style="height:55px;width:56px;border-width:0px;" />
+		</div><div id="pnl4" class="answer" onclick="var t = this.getElementsByTagName(&#39;input&#39;)[0];if(t.type == &#39;radio&#39;){t.click();}">
+			<span class="rbanswer"><input id="lbl|4" type="radio" name="answer" value="lbl|4" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;lbl|4\&#39;,\&#39;\&#39;)&#39;, 0)" /></span><img id="img_a_4" z-index="-1" src="../text_365/4-a-4.png" style="height:55px;width:56px;border-width:0px;" />
+		</div><div id="pnl5" class="answer" onclick="var t = this.getElementsByTagName(&#39;input&#39;)[0];if(t.type == &#39;radio&#39;){t.click();}">
+			<span class="rbanswer"><input id="lbl|5" type="radio" name="answer" value="lbl|5" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;lbl|5\&#39;,\&#39;\&#39;)&#39;, 0)" /></span><img id="img_a_5" z-index="-1" src="../text_365/4-a-5.png" style="height:55px;width:56px;border-width:0px;" />
+		</div>
+	</div>
+                                                </ul>
+                                            </dd>
+                                        </dt>
+                                    </dl>
+                                    <div class="other oz">
+                                        <div id="_submit_notify" style="display: none;">
+                                            <span style="color: #266CA6; font-size: 18px; font-weight: bold;">正在提交, 请稍等... ...</span>
+                                        </div>
+                                        <div id="div_submit" style="display: inline; float: left">
+                                            <input type="submit" name="btnPre" value="上一题" id="btnPre" />
+                                            <input type="submit" name="btnNext" value="下一题" onclick="return NextPD();" id="btnNext" />
+                                            &nbsp;&nbsp;&nbsp;
+                                        </div>
+                                        <div style="display: inline; float: left">
+                                            <div style="display: inline; float: left;" class="font-style">
+                                                <b>测试时间：</b>
+                                            </div>
+                                            <div style="display: inline; float: left">
+                                                <input name="txtTime" type="text" id="txtTime" style="color:Black;background-color:White;border-style:None;font-weight:bold;width:90px;" />
+                                            </div>
+                                        </div>
+                                        <div class="graph">
+                                            <strong id="bar" style="width: 1%;"></strong>
+                                        </div>
+                                    </div>
+                                
+</div>
+                            <div>
+                                <b><a id="jj" style="cursor: pointer" class="font-style" onclick="showjj();">[点击此处查看简介]</a>  </b>
+                            &nbsp;&nbsp;&nbsp;
+                              <b><a id="bz" style="cursor: pointer" class="font-style" onclick="showbz();">[点击此处查看帮助]</a>  </b>
+                            </div>                            
+                            <div id="divjj" style="float: left; border: 1px solid gray; width: 100%" class="font-style">
+                                <span id="lbjj">简介：智力测验（intellingence test)亦称智商测验或IQ测验，是通过测验的方式来了解人的智力水平高低的一种方法。一般认为，智力是人的各种基本能力的综合，包括观察力、注意力、记忆力、思维力和想象力等，因此，智力测验又称普通或一般能力测验。</span>
+                            </div>
+                            <div id="divbz" style="float: left; border: 1px solid gray; width: 100%" class="font-style">
+                                <span id="lbbz">指导语：1．你必须在45分钟内完成全部60个题目，一定不要超过时间。
+    2．不要在一个题目上耽搁太久，如果回答不出，就猜一个答案。猜错不扣分。不要留下未回答的题目。
+    3．如果一个题目看起来有一个以上的正确答案或没有正确答案，选一个你认为最好的答案。这些题目是为了测验你的思考力而有意设计的。</span>
+                            </div>
+                            <div id="div_sound">
+                                <iframe id="frm_sound" src="voice.html?pid=365&num=0"></iframe>
+                            </div>
+                            <input type="hidden" id="jishi" data-seconds="0" />
+                            <input type="hidden" name="lbid" id="lbid" value="365" />
+                            <script type="text/javascript">
+                                function divhide() {
+                                    $("#divbz").hide();
+                                    $("#divjj").hide();
+                                }
+
+                                function showjj() {
+                                    $("#divbz").hide();
+                                    $("#divjj").show();
+                                }
+                                function showbz() {
+                                    $("#divjj").hide();
+                                    $("#divbz").show();
+                                }
+                                function go(value) {
+                                    $("#bar").width(parseInt(value) + "%");
+                                    $("#bar").html(parseInt(value) + "%");
+                                    if ($("#bar").width == "100%") {
+                                    }
+
+                                }
+
+                                function IsTJ() {
+                                    document.getElementById("div_submit").style.display="none";
+                                    document.getElementById("_submit_notify").style.display="";
+                                    var result = false;
+                                    for (var i = 0; i < 40000; i++) {
+                                        if(i >= 39999)
+                                        {
+                                            result = true;
+                                            break;
+                                        }
+                                    }
+                                    return result;
+                                }
+
+                                function title() {
+                                    art.dialog({
+                                        id: 'tit',
+                                        lock: true,
+                                        background: '#11A3CD', // 背景色  
+                                        opacity: 0.4,  // 透明度  
+                                        icon: 'question',
+                                        content: '<font size="3px"><b>测试题已做完，需要提交吗？</b></font>',
+                                        button: [
+                                            {
+                                                name: '确定',
+                                                callback: function () {
+                                                    $('#btnSubmit').click();
+                                                },
+                                                focus: true
+                                            },
+                                            {
+                                                name: '取消',
+                                                callback: function () {
+                                                    return;
+                                                }
+                                            }
+                                        ]
+                                    });
+                                }
+
+                                function magalert(value, value1) {
+                                    art.dialog({
+                                        id: 'tit',
+                                        lock: true,
+                                        title: "简介以及指导语",
+                                        background: '#11A3CD', // 背景色  
+                                        opacity: 0.4,  // 透明度  
+                                        icon: '',
+                                        width: 800,
+                                        //height: 500,
+                                        fixed: true,
+                                        content: '<font size="2px"><b>' + value + '<br/>' + value1 + '</b></font>',
+                                        button: [
+                                            {
+                                                name: '确定',
+                                                callback: function () {
+                                                    test();
+                                                },
+                                                focus: true
+                                            }
+                                        ]
+                                    });
+                                }
+
+                                var HH = 0;
+                                var mm = 0;
+                                var ss = 0;
+                                var str = '';
+                                function test() {
+
+                                    setInterval(function () {
+                                        str = "";
+                                        if (++ss == 60) {
+                                            if (++mm == 60) {
+                                                HH++;
+                                                mm = 0;
+                                            }
+                                            ss = 0;
+                                        }
+                                        str += HH < 10 ? "0" + HH : HH;
+                                        str += "时";
+                                        str += mm < 10 ? "0" + mm : mm;
+                                        str += "分";
+                                        str += ss < 10 ? "0" + ss : ss;
+                                        str += "秒";
+                                        $("#txtTime").val(str);
+                                    }, 1000);
+                                }
+
+                                
+                                    function continuetest() {
+                                        var createtime = "2022年08月03日";
+                                        art.dialog({
+                                            id: 'tit',
+                                            lock: true,
+                                            title: "系统提示",
+                                            background: '#11A3CD', // 背景色  
+                                            icon: '',
+                                            opacity: 0.4,  // 透明度  
+                                            width: 800,
+                                            //height: 500,
+                                            fixed: true,
+                                            content: '<font size="2px"><b>您于['+createtime+']尚未完成该量表的测试，请问是否继续测试？</b></font>',
+                                            button: [
+                                                {
+                                                    name: '确定',
+                                                    callback: function () {
+                                                        window.location.href += "&iscontinue=1";                                                
+                                                    },
+                                                    focus: true
+                                                }
+                                            ]
+                                        });
+                                    }
+                                    
+                            </script>
+                        </div>
+                   
+          
+        </div>
+        
+
+  <div class="footer">
+    <div class="fot-nav"><a href="default.aspx">网站首页</a> | <a href="careerplan.aspx">职业生涯规划</a> | <a href="images.aspx">活动影集</a> | <a href="consultonline.aspx">在线咨询</a> | <a href="testonlie.aspx">在线测试</a> | </div>
+    <div class="fot-copy">
+        本系统使用权授予：职业生涯规划系统 　　　版权所有：©2012-2022 职业生涯规划系统 <br />
+        心理专业支持：http://www.ahxinjian.com  　　　产品技术支持：http://www.ygxinjian.com
+    </div>
+</div> 
+
+</div>
+
+
+    </form>
+</body>
+</html>
